@@ -17,6 +17,7 @@ public class View extends JFrame
         this.controller = c;
 
         setupUI();
+        pack();
     }
 
     public void setupUI()
@@ -41,7 +42,5 @@ public class View extends JFrame
         contentPanel.add(loginButton);
 
         getContentPane().add(contentPanel);
-        pack();
-
     }
 }

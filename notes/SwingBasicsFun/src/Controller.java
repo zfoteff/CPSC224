@@ -35,7 +35,7 @@ public class Controller
 
         //  2) Define a new class (outer or nested) that implements action listener
         //  create an object of the class and register
-        //  anonymous class: lets you define class, and instantite it, and register it as listener in one go
+        //  anonymous class: lets you define class, and instantiate it, and register it as listener in one go
 
         view.loginButton.addActionListener(new ActionListener()
         {

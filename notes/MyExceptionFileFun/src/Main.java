@@ -9,7 +9,8 @@ public class Main
 
         //  2 types of exception
         //  1. unchecked exception: errors and runtime exceptions
-        //  2. checked exceptions: an exceptions that you have to handle or acknowledge the exception
+        //  2. checked exceptions: an exceptions that you have to handle or acknowledge the exception (checked by
+        //  compiler)
 
         //  runtime example
         try
@@ -54,8 +55,7 @@ public class Main
 
         Scanner user = new Scanner(System.in);
 
-        try
-        {
+        try {
             PrintStream outFile = new PrintStream(new File("out.txt"));
             String newStr = user.nextLine();
             while (!newStr.equals("q"))

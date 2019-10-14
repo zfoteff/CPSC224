@@ -1,28 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class View extends JFrame
+public class HangmanView extends JFrame
 {
-    private Controller controller;
+    private HangmanController controller;
 
-    protected JLabel guessWord = new JLabel("");
-    protected JLabel lettersRemaining = new JLabel("abcdefghijklmnopqrstuvwxyz");
+    protected JLabel guessWord = new JLabel(" ");
+    protected JLabel lettersRemaining = new JLabel("");
     protected JLabel status = new JLabel("Welcome to Hangman!");
     protected JButton sendGuess = new JButton("Guess");
+    protected JButton newGame = new JButton("New Game");
     protected JTextField userGuess = new JTextField();
 
-    public View(Controller c)
+    public HangmanView(HangmanController c)
     {
         super("Hangman");
         this.controller = controller;
 
         setupUI();
+        pack();
+
+
     }
 
     public void setupUI()
     {
         setVisible(true);
-        setSize(new Dimension(1000, 500));
+        setSize(new Dimension(3500, 1750));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel content = new JPanel();
@@ -34,7 +38,8 @@ public class View extends JFrame
             [   lettersRemaining    ]
             [  --- guess field ---  ]
             [      Guess button     ]
-            [        status         ]
+            [        New Game       ]
+            [         status        ]
 
          */
 
@@ -46,10 +51,13 @@ public class View extends JFrame
         content.add(userGuess);
         sendGuess.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(sendGuess);
+        newGame.setAlignmentX(Component.CENTER_ALIGNMENT);
+        content.add(newGame);
         status.setAlignmentX(Component.CENTER_ALIGNMENT);
         content.add(status);
 
         getContentPane().add(content);
-        pack();
+        userGuess.setEnabled(false);
+        sendGuess.setEnabled(false);
     }
 }

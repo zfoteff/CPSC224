@@ -1,7 +1,10 @@
 public class HangmanTester
 {
-    private Model model;
-    private View view;
+    public static void main(String[] args)
+    {
+        HangmanModel m = new HangmanModel();
+        HangmanController c = new HangmanController(m);
+    }
 }
 
 
