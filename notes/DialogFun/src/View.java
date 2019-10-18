@@ -28,24 +28,22 @@ public class View extends JFrame
             {
                 String text = userEntry.getText();
 
-                try {
-                    int value = Integer.parseInt(text);
-                    status.setText("Squared: "+(value*value));
+                do
+                {
+                    valid = true;
+                    try {
+                        int value = Integer.parseInt(text);
+                        status.setText("Squared: " + (value * value));
 
-                    // JDialog - mini JFrame that pops up and waits for user interaction
+                        // JDialog - mini JFrame that pops up and waits for user interaction
 
-                } catch (NumberFormatException ex) {
-                    status.setText("Not an integer");
+                    } catch (NumberFormatException ex) {
+                        status.setText("Not an integer");
 
-                    int choice = JOptionPane.showConfirmDialog(View.this,
-                            "Not an integer. Try again?", "Invalid input",
-                            JOptionPane.YES_NO_CANCEL_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null);
-
-                    if (choice == JOptionPane.NO_OPTION) // 1
-                        System.exit(0);
-                }
+                        String valueStr = JOptionPane.showInputDialog("Enter an integer or else");
+                        int num = Integer.parseInt(valueStr);
+                    }
+                } while (!valid)
             }
         });
     }

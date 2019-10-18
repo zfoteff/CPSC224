@@ -1,3 +1,10 @@
+/**
+ * File contains the logic behind inputting user guesses for the Hangman game
+ *
+ * @author Zac Foteff
+ * @version v1.0
+ */
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +14,11 @@ public class HangmanController
     private HangmanModel model;
     private HangmanView view;
 
+    /**
+     * Constructor contains the logic for every user input option, and updates the view accordingly
+     *
+     * @param m HangmanModel that will accessed to create logic for button presses
+     */
     public HangmanController(HangmanModel m)
     {
         this.model = m;
@@ -20,18 +32,17 @@ public class HangmanController
            public void actionPerformed(ActionEvent e)
            {
                String text = view.userGuess.getText();
-               if (text.length() > 1 || text.length() < 0)
-               {
-                   view.status.setText("Please enter 1 character");
-                   view.userGuess.setText("");
-                   return;
-               }
-
-
-               char letter = text.charAt(0);
                char result = '-';
                boolean valid;
                boolean winCondition = false;
+               char letter = text.charAt(0);
+
+               if (text.length() > 1 || text.length() < 0)
+               {
+                   view.status.setText("Please enter only 1 character");
+                   view.userGuess.setText("");
+                   return;
+               }
 
                do
                {
@@ -42,7 +53,7 @@ public class HangmanController
                        valid = false;
                        view.status.setText("Invalid guess, Please enter 1 character");
                    }
-               } while(!valid || text.length() != 1);
+               } while(!valid);
 
                //   Guess was in target word
                if (result == letter)
@@ -52,7 +63,7 @@ public class HangmanController
                    //   reveal guessed letter(s) in the hidden word
                    view.guessWord.setText(new String(model.visibleLetters));
                    //   display new status message
-                   view.status.setText("Correct! Guesses: "+model.guesses);
+                   view.status.setText("Correct! "+letter+" is in the word");
                    //   clear text field
                    view.userGuess.setText("");
                    winCondition = model.checkWin();
@@ -62,7 +73,7 @@ public class HangmanController
                {
                    view.lettersRemaining.setText(new String(model.availableLetters));
                    view.guessWord.setText(new String(model.visibleLetters));
-                   view.status.setText("Letter already guessed. Guesses: "+model.guesses);
+                   view.status.setText("That letter has already been guessed.");
                    view.userGuess.setText("");
                }
 
@@ -70,7 +81,8 @@ public class HangmanController
                {
                    view.lettersRemaining.setText(new String(model.availableLetters));
                    view.guessWord.setText(new String(model.visibleLetters));
-                   view.status.setText("Wrong guess. Guesses: "+model.guesses);
+                   view.status.setText("Incorrect. "+letter+" is not in the word");
+                   view.guessesRemaining.setText("Guesses remaining: "+model.guesses);
                    view.userGuess.setText("");
                }
 
@@ -104,19 +116,23 @@ public class HangmanController
                         JOptionPane.QUESTION_MESSAGE,
                         null);
 
-                //  If the user decides to start a new game:
+                //  If the user decides to start a new game the controller should:
                 //  - reset available letters
+                //  - reset visible letters
                 //  - select new word
                 //  - reset amount of guesses
+                //  - re-enable user input
+                //  in the HangmanModel class object
                 if (choice == JOptionPane.YES_OPTION)
                 {
                     model.selectWord();
                     model.buildVisibleLetters();
                     model.buildAvailableLetters();
-                    model.resetGuesses();
+                    model.guesses = 7;
                     view.lettersRemaining.setText(new String(model.availableLetters));
                     view.guessWord.setText(new String(model.visibleLetters));
-                    view.status.setText("Guesses: 7");
+                    view.status.setText("Make a guess!");
+                    view.guessesRemaining.setText("Guesses remaining: "+model.guesses);
                     //  enables user input
                     view.userGuess.setEnabled(true);
                     view.sendGuess.setEnabled(true);
