@@ -2,72 +2,58 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Controller
-{
-    //  Has reference to view and model so they can be directly manipulated
+// 1.
+public class Controller /*implements ActionListener*/ {
     private Model model;
     private View view;
 
-    public Controller(Model m)
-    {
-        this.model = m;
+    public Controller(Model model) {
+        this.model = model;
         this.view = new View(this);
 
-        /*  When we hit login, we want the program to
-            1)  grab username and password
-            2)  authenticate user with model
-            3)  update the status label
-        */
+        // big picture for what we have left to do
+        // when the user presses the login button
+        // grab the username and password
+        // authenticate with the model
+        // update the status label
 
-        /*  Event listening
-         Callbacks:
-          - Uses action listeners (interface)
-              + button.addActionListener(this): that reference is stored in list of references
-              + reference.actionPerformed(ActionEvent e)   : returns action from list of references (callback)
-                                                             And executes commands associated with that action
-          - Any object that uses an action listener has to override actionPerformed
-        */
-
-        //  2 ways to implement action listener
-        //  1) Have controller do it
-        //  override actionPerformed and register this instance of Controller as the callback of the object
-        //  view.loginButton.addActionListener(this);
-
-        //  2) Define a new class (outer or nested) that implements action listener
-        //  create an object of the class and register
-        //  anonymous class: lets you define class, and instantiate it, and register it as listener in one go
-
-        view.loginButton.addActionListener(new ActionListener()
-        {
+        // 2 ways to implement ActionListener
+        // 1. Controller implement ActionListener
+        // register this instance of Controller as the callback object
+        //view.loginButton.addActionListener(this);
+        // 2. Define a new class (outer or nested) that implements ActionListener
+        // create an object of the class and register
+        // anonymous class!!
+        view.loginButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 JButton button = (JButton) e.getSource();
                 System.out.println(button.getText());
 
-                String username = Controller.this.view.textField.getText(); // this works differently with anon classes
-                String password = new String(view.passField.getPassword());
+                String username = Controller.this.view.usernameTextField.getText();
+                String password = new String(view.passwordField.getPassword());
 
-                boolean passwordCheck = m.authenticate(username, password);
+                System.out.println(username + " " + password);
+                // task: authenticate with the model
+                // update the status label (setText())
 
-                if (passwordCheck)
-                    view.loginLabel.setText("Welcome, "+ username);
+                boolean valid = model.authenticate(username, password);
+                if (valid) {
+                    view.statusLabel.setText("Welcome, admin");
+                }
+                else {
+                    view.statusLabel.setText("Go away!!");
+                }
 
-                else
-                    view.loginLabel.setText("Login incorrect");
             }
         });
 
-
-
     }
 
-    /*  Overriding for option 1
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        System.out.println(e.getActionCommand());
-    }
-    */
+    // 1.
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        System.out.println(e.getActionCommand());
+//    }
+
 }
-
