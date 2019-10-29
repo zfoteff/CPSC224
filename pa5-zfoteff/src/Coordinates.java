@@ -10,15 +10,19 @@
 
 public class Coordinates
 {
+    /** int corresponding with the row in the Tic-Tac-Toe board the object is assigned to **/
     private int row;
+    /** int corresponding with the column in the Tic-Tac-Toe board the object is assigned to **/
     private int col;
 
+    /** DVC for a coordinates object **/
     public Coordinates()
     {
         this.row = -1;
         this.col = -1;
     }
 
+    /** EVC for a coordinates object **/
     public Coordinates(int playerRow, int playerCol)
     {
         this.row = playerRow;

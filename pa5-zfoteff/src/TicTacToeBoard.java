@@ -1,6 +1,19 @@
+/**
+ *   This file declares a class object TicTacToe board to act as the underlying game logic in the implementation of the
+ *   game of Tic-Tac-Toe
+ *   CSPC 224-01, Fall 2019
+ *   Programming Assignment #5
+ *   Sources:
+ *
+ *   @author Zac Foteff
+ *   @version v1.0 10/28/2019
+ */
+
 public class TicTacToeBoard
 {
+    /** User defined size for the game grid **/
     private int N;
+    /** Grid of cell objects the game logic is based around **/
     private Cell[][] grid;
 
     public TicTacToeBoard(int playerN)
@@ -120,7 +133,7 @@ public class TicTacToeBoard
             colCount = 0;
             while (colCount < N)
             {
-                if (grid[row][0+colCount].getSymbol() == playerSymbol)
+                if (grid[row][colCount].getSymbol() == playerSymbol)
                     colCount++;
 
                 else
@@ -138,7 +151,7 @@ public class TicTacToeBoard
             rowCount = 0;
             while (rowCount < N)
             {
-                if (grid[0 + rowCount][col].getSymbol() == playerSymbol)
+                if (grid[rowCount][col].getSymbol() == playerSymbol)
                     rowCount++;
 
                 else
@@ -158,9 +171,9 @@ public class TicTacToeBoard
         }
 
         //  Right diagonal iterator
-        for (int i = N; i >= 0; --i)
+        for (int i = N; i > 0; --i)
         {
-            if (grid[i-1][0+rightDiagCount].getSymbol() == playerSymbol)
+            if (grid[i-1][rightDiagCount].getSymbol() == playerSymbol)
                 rightDiagCount++;
 
             else
@@ -203,5 +216,18 @@ public class TicTacToeBoard
             return true;
 
         return false;
+    }
+
+    /**
+     * Method returns player token stored in the tic-tac-toe board cell specified by the user
+     *
+     * @param row int user specified row in [0,2]
+     * @param col int user specified col in [0,2]
+     * @return String representation of the player token in the specified shell
+     */
+    public String getCellSymbol(int row, int col)
+    {
+        Cell targetCell = grid[row][col];
+        return ""+targetCell.getSymbol();
     }
 }
