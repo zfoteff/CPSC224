@@ -1,6 +1,6 @@
 CPSC 224: Software Development
 ==============================
-All files created during the Fall 2019 semeester of CPSC 244 at Gonzaga University  
+All files created during the Fall 2019 semester of CPSC 244 at Gonzaga University  
 
 # PA1: Hangman (Text based)  
 Text based implementation of the game Hangman. User inputs guesses into the command line and the remaining letters and current guess status is outputted back.  
